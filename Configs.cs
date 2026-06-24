@@ -70,40 +70,40 @@ public class AppConfig
     public string AppVersion { get; } = "1.0";
     [JsonPropertyName("settings")]
     public Settings Settings { get; set; } = new();
-    [JsonPropertyName("works")]
-    public List<Work> Works { get; set;} =
+    [JsonPropertyName("jobs")]
+    public List<Job> Jobs { get; set;} =
     [
-        new Work
+        new Job
         { 
             Category = "Images",
             Path = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures), 
             Extensions = [".png", ".jpg", ".webp", ".gif", ".bmp", ".heic", ".psd", ".ai", ".svg", ".vsdx"]
         },
-        new Work
+        new Job
         {
             Category = "Documents",
             Path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), 
             Extensions = [".docx", ".pdf", ".txt", ".odt", ".md", ".rtf", ".tex"]
         },
-        new Work
+        new Job
         {
             Category = "Music",
             Path = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic), 
             Extensions = [".mp3", ".aif", ".ogg", ".wav", ".wma"]
         },
-        new Work
+        new Job
         { 
             Category = "Programs",
             Path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Programs"), 
             Extensions = [".exe", ".app", ".msi", ".apk", ".bat", ".bin", ".jar", ".ipa", ".sh", ".run"]
         },
-        new Work
+        new Job
         { 
             Category = "Videos",
             Path = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos), 
             Extensions = [".mp4", ".mpg", ".flv", ".mov", ".avi", ".wmv"]
         },
-        new Work
+        new Job
         { 
             Category = "3DModels",
             Path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "3DModels"), 
@@ -111,7 +111,7 @@ public class AppConfig
         }
     ];
 }
-public class Work
+public class Job
 {
     [JsonPropertyName("category")]
     public string Category { get; set; } = "";
@@ -133,5 +133,5 @@ public class Settings
     [JsonPropertyName("writeLogs")]
     public bool WriteLogs { get; set; } = false;
     [JsonPropertyName("resetConfig")]
-    public bool ResetConf { get; set; } = true; //TODO CHANGE TO FALSE FOR PROD
+    public bool ResetConf { get; set; } = false;
 }

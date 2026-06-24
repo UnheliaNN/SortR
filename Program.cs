@@ -13,43 +13,43 @@ public static class Program
         }
         Config.Load(); // Loading configs from json file
 
-        foreach (Work work in Config.Instance.Works) // Collecting all works from configs
+        foreach (Job job in Config.Instance.Jobs) // Collecting all Jobs from configs
         {
             try // Creating target directory
             {
-                if (!Directory.Exists(work.Path))
-                    Directory.CreateDirectory(work.Path);
+                if (!Directory.Exists(job.Path))
+                    Directory.CreateDirectory(job.Path);
             }
             catch (Exception ex)
             {
-                Register.Log($"Work {work.Category} is skipped due to the exception: {ex.Message}", 'E'); // Skipping work if directory couldn't be created
+                Register.Log($"Job {job.Category} is skipped due to the exception: {ex.Message}", 'E'); // Skipping Job if directory couldn't be created
                 continue;
             }
 
             int filesAmount = 0;
-            foreach (string name in work.Names) // Collecting all files that match name parameter and moving them
+            foreach (string name in job.Names) // Collecting all files that match name parameter and moving them
             {
                 string[] targetFiles = [.. Directory.EnumerateFiles(RuntimeData.Buffer, $"*{name}*", SearchOption.AllDirectories)];
-                filesAmount += MoveFiles(targetFiles, work);
+                filesAmount += MoveFiles(targetFiles, job);
             }
-            foreach (string extension in work.Extensions) // Collecting all files that match extension parameter and moving them
+            foreach (string extension in job.Extensions) // Collecting all files that match extension parameter and moving them
             {
                 string[] targetFiles = [.. Directory.EnumerateFiles(RuntimeData.Buffer, $"*{extension}", SearchOption.AllDirectories)];
-                filesAmount += MoveFiles(targetFiles, work);
+                filesAmount += MoveFiles(targetFiles, job);
             }
             if (filesAmount > 0)
-                Register.Log($"Moved {filesAmount} files to category: {work.Category}", 'I');
+                Register.Log($"Moved {filesAmount} files to category: {job.Category}", 'I');
         }
 
         Config.Save(); // Saving configs
     }
-    public static int MoveFiles(string[] targetFiles, Work work)
+    public static int MoveFiles(string[] targetFiles, Job Job)
     {
         int filesAmount = 0;
 
         foreach (string file in targetFiles)
         {
-            string targetFileName = Path.Combine(work.Path, Path.GetFileName(file));
+            string targetFileName = Path.Combine(Job.Path, Path.GetFileName(file));
             
             try
             {
