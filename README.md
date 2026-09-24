@@ -1,6 +1,5 @@
 # About SortR
 
-My first public project. 
 Console utility that helps you automatically sort files from specified folder by their extensions or names. Supports most popular OS' such as all Windows versions, MacOs and linux distributions.
 
 ## Documentation
